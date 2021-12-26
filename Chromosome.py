@@ -6,7 +6,6 @@ class Chromosome:
   charactersToRandom = ' ' + string.ascii_letters + string.digits
 
   def __init__(self, _parent) -> None:
-    self.sizeGene = len(_parent.solution)
     self.solution = _parent.solution
 
     self.rateMutation = _parent.rateMutation
@@ -64,4 +63,4 @@ class Chromosome:
     self.fitness = pFitness
 
   def getFitness(self) -> float:
-    return ((self.fitness*100)/self.sizeGene)
+    return ((self.fitness*100)/len(self.genes))
