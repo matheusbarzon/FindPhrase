@@ -3,14 +3,16 @@ import string
 
 class Chromosome:
 
-  def __init__(self, _parent) -> None:
-    self.fitness = 0
-    self.genes = []
+  charactersToRandom = ' ' + string.ascii_letters + string.digits
 
+  def __init__(self, _parent) -> None:
     self.sizeGene = len(_parent.solution)
     self.solution = _parent.solution
 
     self.rateMutation = _parent.rateMutation
+
+    self.fitness = 0
+    self.genes = []
 
     pass
 
@@ -20,8 +22,7 @@ class Chromosome:
 
     self.generateFitness()
 
-  def createDefineChromosome(self,pGenes=[]) -> None:
-    self.getRandomGene()
+  def createDefinedChromosome(self,pGenes=[]) -> None:
     self.genes = pGenes
     for iterator in range(len(self.genes)):
       if self.getRandomNumber() <= self.getTaxaDeMutacao():
@@ -33,7 +34,7 @@ class Chromosome:
     return random.randint(0, 100)
 
   def getRandomGene(self) -> str:
-    return ''.join(random.choice(' ' + string.ascii_letters + string.digits) for _ in range(1))
+    return ''.join(random.choice(self.charactersToRandom) for _ in range(1))
 
   def setTaxaDeMutacao(self, pRateMutation=int) -> None:
     self.rateMutation = pRateMutation
@@ -46,7 +47,6 @@ class Chromosome:
 
   def getChromosome(self) -> str:
     vReturn = ''
-
     for interator in range(len(self.genes)):
       vReturn += str(self.genes[interator])
 
@@ -54,7 +54,6 @@ class Chromosome:
 
   def generateFitness(self) -> None:
     vFitness = 0
-
     for interator in range(len(self.genes)):
       if self.genes[interator] == self.solution[interator]:
         vFitness += 1
@@ -65,5 +64,4 @@ class Chromosome:
     self.fitness = pFitness
 
   def getFitness(self) -> float:
-    #percent
     return ((self.fitness*100)/self.sizeGene)
